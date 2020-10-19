@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.Events;
 
 public interface IDamageable
 {
-    float Health { get; set; }
+    float Health
+    {
+        get;
+        set;
+    }
 
-    void TakeDamage(float damage);
+    void TakeDamage (float damage);
 
-    void Instakill();
+    void Instakill ();
 
-    void OnKill();
+    void OnKill ();
 }
