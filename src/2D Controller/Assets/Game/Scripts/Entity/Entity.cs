@@ -1,12 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 public class Entity : MonoBehaviour, IEntity, IDamageable
 {
-    public UnityEvent OnKilled;
-
     private float _health;
 
     public float Health
@@ -14,7 +9,7 @@ public class Entity : MonoBehaviour, IEntity, IDamageable
         get => _health;
         set
         {
-            if (value > 0)
+            if (_health - value > 0)
             {
                 OnKill();
                 return;
@@ -33,7 +28,9 @@ public class Entity : MonoBehaviour, IEntity, IDamageable
         {
             _isDead = value;
 
-            gameObject.SetActive(value);
+            if (!(SpawnPoint.Instance is SpawnPoint spawn)) return;
+            gameObject.transform.position = spawn.transform.position;
+
         }
     }
 
@@ -45,8 +42,10 @@ public class Entity : MonoBehaviour, IEntity, IDamageable
     public void OnKill()
     {
         IsDead = true;
-        OnKilled?.Invoke();
+        OnKilled();
     }
+
+    public virtual void OnKilled() { }
 
     public void TakeDamage(float damage)
     {
