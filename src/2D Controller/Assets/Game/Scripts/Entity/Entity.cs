@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,7 +17,7 @@ public class Entity : MonoBehaviour, IEntity, IDamageable
         {
             if (value > 0)
             {
-                OnKill ();
+                OnKill();
                 return;
             }
 
@@ -24,18 +25,18 @@ public class Entity : MonoBehaviour, IEntity, IDamageable
         }
     }
 
-    public void Instakill ()
+    public void Instakill()
     {
         Health = -1;
     }
 
-    public void OnKill ()
+    public void OnKill()
     {
-        OnKilled?.Invoke ();
+        OnKilled?.Invoke();
     }
 
-    public void TakeDamage (float damage)
+    public void TakeDamage(float damage)
     {
-        Debug.Log ("Damage Taken: 29");
+        Debug.Log("Damage Taken: 29");
     }
 }

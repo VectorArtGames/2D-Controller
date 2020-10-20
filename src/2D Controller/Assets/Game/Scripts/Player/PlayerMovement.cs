@@ -37,14 +37,12 @@ public class PlayerMovement : MonoBehaviour
 
             rb.velocity = new Vector2(20 * dir, playerCollision.IsColliding(Bottom) ? 20 : 15);
         }
-        if (Input.GetButton("Horizontal"))
+
+        var x = Input.GetAxis("Horizontal");
+        if (x != 0)
         {
-            var x = Input.GetAxis("Horizontal");
-            if (x != 0)
-            {
-                var dir = new Vector2(x * Speed, rb.velocity.y);
-                rb.velocity = dir;
-            }
+            var dir = new Vector2(x * Speed, rb.velocity.y);
+            rb.velocity = Vector2.Lerp(rb.velocity, dir, Time.deltaTime * Speed);
         }
     }
 }
