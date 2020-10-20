@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 using static PlayerCollision.CollisionDirection;
@@ -12,21 +11,19 @@ public class PlayerMovement : MonoBehaviour
 
     public float Speed;
 
+    public bool CanMove;
+
     private void Awake()
     {
         TryGetComponent(out playerCollision);
         TryGetComponent(out rb);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
+        if (!CanMove) return;
+
         if (Input.GetButtonUp("Jump") && playerCollision.AnyColliding())
         {
             float dir = 0;

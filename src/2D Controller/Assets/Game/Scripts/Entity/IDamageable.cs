@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.Events;
 
 public interface IDamageable
 {
     float Health { get; set; }
+
+    bool IsDead { get; set; }
 
     void TakeDamage(float damage);
 
