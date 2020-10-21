@@ -28,9 +28,6 @@ public class Entity : MonoBehaviour, IEntity, IDamageable
         {
             _isDead = value;
 
-            if (!(SpawnPoint.Instance is SpawnPoint spawn)) return;
-            gameObject.transform.position = spawn.transform.position;
-
         }
     }
 

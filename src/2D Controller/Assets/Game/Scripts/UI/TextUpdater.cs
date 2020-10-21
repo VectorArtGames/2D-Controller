@@ -1,8 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-
 using TMPro;
-
 using UnityEngine;
 
 public class TextUpdater : MonoBehaviour
@@ -31,7 +30,7 @@ public class TextUpdater : MonoBehaviour
     private string GetFormattedText()
     {
         var txt = TextFormat;
-        txt = txt.Replace("%lives%", player.Lives.ToString());
+        txt = txt.Replace("%lives%", player.Lives.ToString()).Replace("%retries%", player.Retries.ToString());
         return txt;
     }
 }

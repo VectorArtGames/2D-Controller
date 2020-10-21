@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class GameEvent : MonoBehaviour
@@ -10,14 +9,20 @@ public class GameEvent : MonoBehaviour
 
     public GameObject TutorialPanel;
     public GameObject InGamePanel;
+    public GameObject GameOverPanel;
 
     public List<TutorialKeys> tutorialKeys = new List<TutorialKeys>();
 
     void Awake()
     {
-        if (TutorialPanel == null || InGamePanel == null) return;
+        if (TutorialPanel == null || InGamePanel == null || GameOverPanel == null)
+        {
+            Debug.LogError("[-] GameEvent.cs:60\nOne of the panels does not exist");
+            return;
+        }
         TutorialPanel.SetActive(true);
         InGamePanel.SetActive(false);
+        GameOverPanel.SetActive(false);
     }
 
     void OnGUI()
@@ -51,6 +56,18 @@ public class GameEvent : MonoBehaviour
                 Debug.Log("[+] Game Starting ..");
             }
         }
+    }
+
+    public void ActivateGameOverPanel()
+    {
+        if (TutorialPanel == null || InGamePanel == null || GameOverPanel == null)
+        {
+            Debug.LogError("[-] GameEvent.cs:60\nOne of the panels does not exist");
+            return;
+        }
+        TutorialPanel.SetActive(false);
+        InGamePanel.SetActive(false);
+        GameOverPanel.SetActive(true);
     }
 }
 
