@@ -6,8 +6,11 @@ using UnityEngine.Events;
 
 public class PlayerEntity : Entity
 {
-    public UnityEvent onKilled;
+    [Header("Configuration"), Space(2f)]
     public int Lives;
+
+    [Header("Events"), Space(5f)]
+    public UnityEvent onKilled;
 
     private void Awake() { }
 
@@ -18,6 +21,7 @@ public class PlayerEntity : Entity
 
     public override void OnKilled()
     {
-        Lives++;
+        Lives--;
+        onKilled?.Invoke();
     }
 }
