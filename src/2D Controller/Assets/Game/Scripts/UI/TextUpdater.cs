@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using TMPro;
+
 using UnityEngine;
 
 public class TextUpdater : MonoBehaviour
@@ -32,5 +34,14 @@ public class TextUpdater : MonoBehaviour
         var txt = TextFormat;
         txt = txt.Replace("%lives%", player.Lives.ToString()).Replace("%retries%", player.Retries.ToString());
         return txt;
+    }
+
+    public void UpdateAllTexts()
+    {
+        var updaters = GameObject.FindObjectsOfType<TextUpdater>();
+        for (var i = 0; i < updaters.Length; i++)
+        {
+            updaters[i].UpdateText();
+        }
     }
 }

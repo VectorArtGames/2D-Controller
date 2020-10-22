@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class GameEvent : MonoBehaviour
 {
+    public static GameEvent Instance { get; set; }
     public bool HasStarted;
 
     public GameObject TutorialPanel;
@@ -23,13 +25,29 @@ public class GameEvent : MonoBehaviour
         TutorialPanel.SetActive(true);
         InGamePanel.SetActive(false);
         GameOverPanel.SetActive(false);
+
+        Instance = this;
+    }
+
+    public void RestartGame()
+    {
+        if (TutorialPanel == null || InGamePanel == null || GameOverPanel == null)
+        {
+            Debug.LogError("[-] GameEvent.cs:60\nOne of the panels does not exist");
+            return;
+        }
+        TutorialPanel.SetActive(true);
+        InGamePanel.SetActive(false);
+        GameOverPanel.SetActive(false);
+        HasStarted = false;
+        tutorialKeys.ForEach(x => x.Clicked = false);
     }
 
     void OnGUI()
     {
         if (HasStarted) return;
 
-        Event e = Event.current;
+        var e = Event.current;
         if (e.isKey && e.type == EventType.KeyDown)
         {
             var key = tutorialKeys.Find(x => x.key == e.keyCode);

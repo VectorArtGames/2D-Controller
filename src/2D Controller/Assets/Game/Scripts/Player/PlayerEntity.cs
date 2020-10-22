@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -50,6 +51,8 @@ public class PlayerEntity : Entity
 
     public UnityEvent OnPermanentKilled;
 
+    public UnityEvent OnContinuedPlayed;
+
     private void Awake()
     {
         Retries = DefaultRetries;
@@ -63,11 +66,22 @@ public class PlayerEntity : Entity
     public override void OnKilled()
     {
         Retries--;
-        onKilled?.Invoke();
         GameEffects.PlayRandomEffectByType(PlayerEffectType.Death, transform.position);
 
         if (!(SpawnPoint.Instance is SpawnPoint spawn)) return;
         gameObject.transform.position = spawn.transform.position;
+
+        onKilled?.Invoke();
+    }
+
+    public void Restart()
+    {
+        if (!(SpawnPoint.Instance is SpawnPoint spawn && GameEvent.Instance is GameEvent gEvent)) return;
+        gameObject.transform.position = spawn.transform.position;
+        if (gameObject.TryGetComponent(out PlayerMovement movement))
+            movement.CanMove = false;
+
+        gEvent.RestartGame();
     }
 
 }
